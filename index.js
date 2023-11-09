@@ -1,6 +1,6 @@
 // Prevent `String#lastIndexOf` treat negative index as `0`
 const safeLastIndexOf = (string, searchString, index) =>
-	index < 0 ? -1 : string.lastIndexOf(searchString, index)
+	index < 0 ? -1 : string.lastIndexOf(searchString, index);
 
 function getPosition(text, textIndex) {
 	const lineBreakBefore = safeLastIndexOf(text, '\n', textIndex - 1);
