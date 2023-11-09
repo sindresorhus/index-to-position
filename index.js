@@ -1,16 +1,16 @@
-function getPosition(text, textIndex) {
-	if (textIndex === 0) {
-		return {line: 0, column: 0};
-	}
+// Prevent `String#lastIndexOf` treat negative index as `0`
+const safeLastIndexOf = (string, searchString, index) =>
+	index < 0 ? -1 : string.lastIndexOf(searchString, index)
 
-	const lineBreakBefore = text.lastIndexOf('\n', textIndex - 1);
+function getPosition(text, textIndex) {
+	const lineBreakBefore = safeLastIndexOf(text, '\n', textIndex - 1);
 	const column = textIndex - lineBreakBefore - 1;
 
 	let line = 0;
 	for (
 		let index = lineBreakBefore;
 		index >= 0;
-		index = index === 0 ? -1 : text.lastIndexOf('\n', index - 1)
+		index = safeLastIndexOf(text, '\n', index - 1)
 	) {
 		line++;
 	}

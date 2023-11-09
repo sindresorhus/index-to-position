@@ -54,12 +54,25 @@ test('CRLF', t => {
 });
 
 test('index on line break', t => {
-	const text = '\na\r\nb';
-	t.deepEqual(indexToPosition(text, 0), {line: 0, column: 0});
-	t.deepEqual(indexToPosition(text, 1), {line: 1, column: 0});
-	t.deepEqual(indexToPosition(text, 2), {line: 1, column: 1});
-	t.deepEqual(indexToPosition(text, 3), {line: 1, column: 2});
-	t.deepEqual(indexToPosition(text, 4), {line: 2, column: 0});
+	{
+		const text = '\na\r\nb';
+		t.deepEqual(indexToPosition(text, 0), {line: 0, column: 0});
+		t.deepEqual(indexToPosition(text, 1), {line: 1, column: 0});
+		t.deepEqual(indexToPosition(text, 2), {line: 1, column: 1});
+		t.deepEqual(indexToPosition(text, 3), {line: 1, column: 2});
+		t.deepEqual(indexToPosition(text, 4), {line: 2, column: 0});
+	}
+
+
+	{
+		const text = '\r\na\r\nb';
+		t.deepEqual(indexToPosition(text, 0), {line: 0, column: 0});
+		t.deepEqual(indexToPosition(text, 1), {line: 0, column: 1});
+		t.deepEqual(indexToPosition(text, 2), {line: 1, column: 0});
+		t.deepEqual(indexToPosition(text, 3), {line: 1, column: 1});
+		t.deepEqual(indexToPosition(text, 4), {line: 1, column: 2});
+		t.deepEqual(indexToPosition(text, 5), {line: 2, column: 0});
+	}
 });
 
 test('mixed line endings', t => {
