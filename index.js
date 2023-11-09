@@ -3,19 +3,13 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		throw new RangeError('Index out of bounds');
 	}
 
+	const lineBreakBefore = text.lastIndexOf('\n', textIndex - 1);
+	const column = textIndex - lineBreakBefore - 1;
+
 	let line = 0;
-	let column = -1;
-
-	for (let index = 0; index <= textIndex; index++) {
-		if (text[index - 1] === '\n' || (text[index - 2] === '\r' && text[index - 1] === '\n')) {
+	for (let index = 0; index <= lineBreakBefore; index++) {
+		if (text.charAt(index) === '\n') {
 			line++;
-			column = 0;
-
-			if (text[index - 2] === '\r') {
-				index++;
-			}
-		} else {
-			column++;
 		}
 	}
 
