@@ -11,8 +11,8 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		let index = lineBreakBefore;
 		index > 0;
 		index = text.lastIndexOf('\n', index - 1)
-	){
-			line++;
+	) {
+		line++;
 	}
 
 	return {line: oneBased ? line + 1 : line, column: oneBased ? column + 1 : column};
