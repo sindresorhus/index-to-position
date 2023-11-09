@@ -9,8 +9,8 @@ function getPosition(text, textIndex) {
 	let line = 0;
 	for (
 		let index = lineBreakBefore;
-		index > 0;
-		index = text.lastIndexOf('\n', index - 1)
+		index >= 0;
+		index = index === 0 ? -1 : text.lastIndexOf('\n', index - 1)
 	) {
 		line++;
 	}
@@ -27,6 +27,3 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 
 	return oneBased ? {line: position.line + 1, column: position.column + 1} : position;
 }
-
-
-console.log(indexToLineColumn('\na',1))
