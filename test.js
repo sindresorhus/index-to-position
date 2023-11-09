@@ -53,9 +53,17 @@ test('CRLF', t => {
 	t.deepEqual(result2, {line: 2, column: 1});
 });
 
+test('index on line break', t => {
+	const text = 'a\r\nb';
+	t.deepEqual(indexToPosition(text, 0), {line: 0, column: 0});
+	t.deepEqual(indexToPosition(text, 1), {line: 0, column: 1});
+	t.deepEqual(indexToPosition(text, 2), {line: 0, column: 2});
+	t.deepEqual(indexToPosition(text, 3), {line: 1, column: 0});
+});
+
 test('mixed line endings', t => {
 	const text = 'hello\nworld\r\n!';
-	const result = indexToPosition(text, 12);
+	const result = indexToPosition(text, text.length - 1);
 	t.deepEqual(result, {line: 2, column: 0});
 });
 

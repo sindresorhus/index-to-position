@@ -3,15 +3,15 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		throw new RangeError('Index out of bounds');
 	}
 
-	let line = oneBased ? 1 : 0;
-	let column = oneBased ? 1 : 0;
+	let line = 0;
+	let column = -1;
 
-	for (let index = 0; index < textIndex; index++) {
-		if (text[index] === '\n' || (text[index] === '\r' && text[index + 1] === '\n')) {
+	for (let index = 0; index <= textIndex; index++) {
+		if (text[index - 1] === '\n' || (text[index - 2] === '\r' && text[index - 1] === '\n')) {
 			line++;
-			column = oneBased ? 1 : 0;
+			column = 0;
 
-			if (text[index] === '\r') {
+			if (text[index - 2] === '\r') {
 				index++;
 			}
 		} else {
@@ -19,5 +19,5 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		}
 	}
 
-	return {line, column};
+	return {line: oneBased ? line + 1 : line, column: oneBased ? column + 1 : column};
 }
