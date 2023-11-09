@@ -3,19 +3,23 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		throw new RangeError('Index out of bounds');
 	}
 
+	let index = textIndex;
 	let line = 0;
 	let column = -1;
 
-	for (let index = 0; index <= textIndex; index++) {
-		if (text[index - 1] === '\n' || (text[index - 2] === '\r' && text[index - 1] === '\n')) {
-			line++;
-			column = 0;
+	// Count columns
+	for (; index >= 0; index--) {
+		column++;
 
-			if (text[index - 2] === '\r') {
-				index++;
-			}
-		} else {
-			column++;
+		if (text.charAt(index - 1) === '\n') {
+			break;
+		}
+	}
+
+	// Count lines
+	for (; index >= 0; index--) {
+		if (text.charAt(index) === '\n') {
+			line++;
 		}
 	}
 
