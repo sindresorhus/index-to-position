@@ -3,17 +3,13 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		throw new RangeError('Index out of bounds');
 	}
 
-	let index = textIndex;
+	let index = textIndex - 1;
 	let line = 0;
-	let column = -1;
+	let column = 0;
 
 	// Count columns
-	for (; index >= 0; index--) {
+	for (; index >= 0 && text.charAt(index) !== '\n'; index--) {
 		column++;
-
-		if (text.charAt(index - 1) === '\n') {
-			break;
-		}
 	}
 
 	// Count lines
