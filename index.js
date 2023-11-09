@@ -7,10 +7,12 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 	const column = textIndex - lineBreakBefore - 1;
 
 	let line = 0;
-	for (let index = 0; index <= lineBreakBefore; index++) {
-		if (text.charAt(index) === '\n') {
+	for (
+		let index = lineBreakBefore;
+		index > 0;
+		index = text.lastIndexOf('\n', index - 1)
+	){
 			line++;
-		}
 	}
 
 	return {line: oneBased ? line + 1 : line, column: oneBased ? column + 1 : column};
