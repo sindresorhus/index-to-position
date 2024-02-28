@@ -1,6 +1,6 @@
 {
 	"name": "index-to-position",
-	"version": "0.1.2",
+	"version": "1.0.0",
 	"description": "Convert a string index to its line and column position",
 	"license": "MIT",
 	"repository": "sindresorhus/index-to-position",
