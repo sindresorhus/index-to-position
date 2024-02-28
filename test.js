@@ -109,3 +109,31 @@ test('single character text - oneBased', t => {
 	const result = indexToPosition(text, 0, {oneBased: true});
 	t.deepEqual(result, {line: 1, column: 1});
 });
+
+test('validate `text` parameter', t => {
+	t.throws(() => {
+		indexToPosition(1);
+	}, {
+		message: /should be a string/,
+	});
+});
+
+test('validate `index` parameter', t => {
+	t.throws(() => {
+		indexToPosition('hello\nworld\n!');
+	}, {
+		message: /integer/,
+	});
+
+	t.throws(() => {
+		indexToPosition('hello\nworld\n!', 'x');
+	}, {
+		message: /integer/,
+	});
+
+	t.throws(() => {
+		indexToPosition('hello\nworld\n!', {});
+	}, {
+		message: /integer/,
+	});
+});

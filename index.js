@@ -19,6 +19,14 @@ function getPosition(text, textIndex) {
 }
 
 export default function indexToLineColumn(text, textIndex, {oneBased = false} = {}) {
+	if (typeof text !== 'string') {
+		throw new TypeError('Text parameter should be a string');
+	}
+
+	if (!Number.isInteger(textIndex)) {
+		throw new TypeError('Index parameter should be an integer');
+	}
+
 	if (textIndex < 0 || (textIndex >= text.length && text.length > 0)) {
 		throw new RangeError('Index out of bounds');
 	}
