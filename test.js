@@ -146,3 +146,15 @@ test('validate `index` parameter', t => {
 		message: /integer/,
 	});
 });
+
+test('edge cases', t => {
+	t.deepEqual(indexToPosition('a', 0), {line: 0, column: 0});
+	t.deepEqual(indexToPosition('abcd', 2), {line: 0, column: 2});
+	t.deepEqual(indexToPosition('ab\ncd', 2), {line: 0, column: 2});
+	t.deepEqual(indexToPosition('ab\ncd', 3), {line: 1, column: 0});
+	t.deepEqual(indexToPosition('', 0), {line: 0, column: 0});
+	t.deepEqual(indexToPosition('a\r\nb', 0), {line: 0, column: 0});
+	t.deepEqual(indexToPosition('a\r\nb', 1), {line: 0, column: 1});
+	t.deepEqual(indexToPosition('a\r\nb', 2), {line: 0, column: 2});
+	t.deepEqual(indexToPosition('a\r\nb', 3), {line: 1, column: 0});
+});
