@@ -6,12 +6,12 @@ const safeLastIndexOf = (string, searchString, index) =>
 function getPosition(text, textIndex) {
 	const lineBreakBefore = safeLastIndexOf(text, '\n', textIndex - 1);
 	if (lineBreakBefore === -1) {
-		return {line: 0, column: textIndex}
+		return {line: 0, column: textIndex};
 	}
 
 	return {
 		line: text.slice(0, lineBreakBefore + 1).match(/\n/g).length,
-		column: textIndex - lineBreakBefore - 1
+		column: textIndex - lineBreakBefore - 1,
 	};
 }
 
