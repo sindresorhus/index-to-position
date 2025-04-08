@@ -1,24 +1,13 @@
-// Prevent `String#lastIndexOf` treat negative index as `0`
-const safeLastIndexOf = (string, searchString, index) =>
-	index < 0 ? -1 : string.lastIndexOf(searchString, index);
-
+// Performance https://github.com/sindresorhus/index-to-position/pull/9
 function getPosition(text, textIndex) {
-	const lineBreakBefore = safeLastIndexOf(text, '\n', textIndex - 1);
-	const column = textIndex - lineBreakBefore - 1;
-
-	let line = 0;
-	for (
-		let index = lineBreakBefore;
-		index >= 0;
-		index = safeLastIndexOf(text, '\n', index - 1)
-	) {
-		line++;
-	}
-
-	return {line, column};
+	const lineBreakBefore = textIndex === 0 ? -1 : text.lastIndexOf('\n', textIndex - 1);
+	return {
+		line: lineBreakBefore === -1 ? 0 : text.slice(0, lineBreakBefore + 1).match(/\n/g).length,
+		column: textIndex - lineBreakBefore - 1,
+	};
 }
 
-export default function indexToLineColumn(text, textIndex, {oneBased = false} = {}) {
+export default function indexToPosition(text, textIndex, {oneBased = false} = {}) {
 	if (typeof text !== 'string') {
 		throw new TypeError('Text parameter should be a string');
 	}
