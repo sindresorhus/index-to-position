@@ -38,9 +38,9 @@ test('last index - oneBased', t => {
 });
 
 test('index out of bounds', t => {
-	t.deepEqual(indexToPosition('', 0), {line:0, column:0});
-	t.deepEqual(indexToPosition('a', 1), {line:0, column:1});
-	t.deepEqual(indexToPosition('a\n', 2), {line:1, column:0});
+	t.deepEqual(indexToPosition('', 0), {line: 0, column: 0});
+	t.deepEqual(indexToPosition('a', 1), {line: 0, column: 1});
+	t.deepEqual(indexToPosition('a\n', 2), {line: 1, column: 0});
 
 	t.throws(() => {
 		indexToPosition('a', 2);
