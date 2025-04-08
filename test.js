@@ -73,6 +73,14 @@ test('index on line break', t => {
 	}
 
 	{
+		const text = '\n\na';
+		t.deepEqual(indexToPosition(text, 0), {line: 0, column: 0});
+		t.deepEqual(indexToPosition(text, 1), {line: 1, column: 0});
+		t.deepEqual(indexToPosition(text, 2), {line: 2, column: 0});
+		t.deepEqual(indexToPosition(text, 3), {line: 2, column: 1});
+	}
+
+	{
 		const text = '\r\na\r\nb';
 		t.deepEqual(indexToPosition(text, 0), {line: 0, column: 0});
 		t.deepEqual(indexToPosition(text, 1), {line: 0, column: 1});
