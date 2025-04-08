@@ -27,7 +27,7 @@ export default function indexToLineColumn(text, textIndex, {oneBased = false} = 
 		throw new TypeError('Index parameter should be an integer');
 	}
 
-	if (textIndex < 0 || (textIndex >= text.length && text.length > 0)) {
+	if (textIndex < 0 || textIndex > text.length) {
 		throw new RangeError('Index out of bounds');
 	}
 
