@@ -147,8 +147,7 @@ test('validate `index` parameter', t => {
 	});
 });
 
-// https://github.com/eventualbuddha/lines-and-columns/blob/eea2581b131685f2c21de777fd037c8ddd343354/test/test.ts
-test('cases from `lines-and-columns`', t => {
+test('edge cases', t => {
 	t.deepEqual(indexToPosition('a', 0), {line: 0, column: 0});
 	t.deepEqual(indexToPosition('abcd', 2), {line: 0, column: 2});
 	t.deepEqual(indexToPosition('ab\ncd', 2), {line: 0, column: 2});
