@@ -1,12 +1,8 @@
 // Performance https://github.com/sindresorhus/index-to-position/pull/9
 function getPosition(text, textIndex) {
 	const lineBreakBefore = textIndex === 0 ? -1 : text.lastIndexOf('\n', textIndex - 1);
-	if (lineBreakBefore === -1) {
-		return {line: 0, column: textIndex};
-	}
-
 	return {
-		line: text.slice(0, lineBreakBefore + 1).match(/\n/g).length,
+		line: lineBreakBefore === -1 ? 0 : text.slice(0, lineBreakBefore + 1).match(/\n/g).length,
 		column: textIndex - lineBreakBefore - 1,
 	};
 }
