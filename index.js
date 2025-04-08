@@ -7,7 +7,7 @@ function getPosition(text, textIndex) {
 	};
 }
 
-export default function indexToLineColumn(text, textIndex, {oneBased = false} = {}) {
+export default function indexToPosition(text, textIndex, {oneBased = false} = {}) {
 	if (typeof text !== 'string') {
 		throw new TypeError('Text parameter should be a string');
 	}
