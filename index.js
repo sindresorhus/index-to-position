@@ -1,13 +1,22 @@
+const getOffsets = ({
+	oneBased,
+	oneBasedLine = oneBased,
+	oneBasedColumn = oneBased,
+} = {}) => [oneBasedLine ? 1 : 0, oneBasedColumn ? 1 : 0];
+
 // Performance https://github.com/sindresorhus/index-to-position/pull/9
-function getPosition(text, textIndex) {
+function getPosition(text, textIndex, options) {
 	const lineBreakBefore = textIndex === 0 ? -1 : text.lastIndexOf('\n', textIndex - 1);
+	const [lineOffset, columnOffset] = getOffsets(options);
 	return {
-		line: lineBreakBefore === -1 ? 0 : text.slice(0, lineBreakBefore + 1).match(/\n/g).length,
-		column: textIndex - lineBreakBefore - 1,
+		line: lineBreakBefore === -1
+			? lineOffset
+			: text.slice(0, lineBreakBefore + 1).match(/\n/g).length + lineOffset,
+		column: textIndex - lineBreakBefore - 1 + columnOffset,
 	};
 }
 
-export default function indexToPosition(text, textIndex, {oneBased = false} = {}) {
+export default function indexToPosition(text, textIndex, options) {
 	if (typeof text !== 'string') {
 		throw new TypeError('Text parameter should be a string');
 	}
@@ -20,7 +29,5 @@ export default function indexToPosition(text, textIndex, {oneBased = false} = {}
 		throw new RangeError('Index out of bounds');
 	}
 
-	const position = getPosition(text, textIndex);
-
-	return oneBased ? {line: position.line + 1, column: position.column + 1} : position;
+	return getPosition(text, textIndex, options);
 }

@@ -5,6 +5,20 @@ export type Options = {
 	@default false
 	*/
 	readonly oneBased?: boolean;
+
+	/**
+	Whether to use 1-based or 0-based line indexing for the result.
+
+	@default false
+	*/
+	readonly oneBasedLine?: boolean;
+
+	/**
+	Whether to use 1-based or 0-based column indexing for the result.
+
+	@default false
+	*/
+	readonly oneBasedColumn?: boolean;
 };
 
 /**
