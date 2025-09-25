@@ -57,4 +57,3 @@ Type: `boolean`\
 Default: `false`
 
 Whether to use 1-based or 0-based column indexing for the result.
-
