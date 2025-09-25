@@ -43,3 +43,17 @@ Type: `boolean`\
 Default: `false`
 
 Whether to use 1-based or 0-based indexing for the result.
+
+##### oneBasedLine
+
+Type: `boolean`\
+Default: `false`
+
+Whether to use 1-based or 0-based line indexing for the result.
+
+##### oneBasedColumn
+
+Type: `boolean`\
+Default: `false`
+
+Whether to use 1-based or 0-based column indexing for the result.

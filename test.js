@@ -97,10 +97,21 @@ test('mixed line endings', t => {
 	t.deepEqual(result, {line: 2, column: 0});
 });
 
-test('oneBased option', t => {
+test('options', t => {
 	const text = 'hello\nworld\n!';
-	const result = indexToPosition(text, 7, {oneBased: true});
-	t.deepEqual(result, {line: 2, column: 2});
+	const getPosition = options => indexToPosition(text, 7, options);
+
+	// Individual options
+	t.deepEqual(getPosition(), {line: 1, column: 1});
+	t.deepEqual(getPosition({oneBased: true}), {line: 2, column: 2});
+	t.deepEqual(getPosition({oneBasedLine: true}), {line: 2, column: 1});
+	t.deepEqual(getPosition({oneBasedColumn: true}), {line: 1, column: 2});
+	t.deepEqual(getPosition({oneBasedLine: true, oneBasedColumn: true}), {line: 2, column: 2});
+
+	// With `oneBased: true`
+	t.deepEqual(getPosition({oneBased: true, oneBasedLine: false}), {line: 1, column: 2});
+	t.deepEqual(getPosition({oneBased: true, oneBasedColumn: false}), {line: 2, column: 1});
+	t.deepEqual(getPosition({oneBased: true, oneBasedLine: false, oneBasedColumn: false}), {line: 1, column: 1});
 });
 
 test('empty text', t => {
